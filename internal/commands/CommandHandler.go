@@ -18,7 +18,7 @@ func CommandHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 	if strings.HasPrefix(m.Content, ";;") {
 		if m.ChannelID == cfg.ChannelID {
 			command := strings.Split(m.Content, ";;")[1]
-			AllCommands := GetAllCommandsCommands()
+			AllCommands := GetAllCommands()
 			if val, ok := AllCommands[command]; ok {
 				val.Executor(s, m)
 			} else {
@@ -28,8 +28,9 @@ func CommandHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 	}
 }
 
-func GetAllCommandsCommands() map[string]Command {
+func GetAllCommands() map[string]Command {
 	m := make(map[string]Command)
-	m["info"] = Command{"info", "The main info command", InfoCommand, ""}
+	m["info"] = Command{"info", "The main info command", InfoCommand, "None"}
+	m["help"] = Command{"help", "Help Command", HelpCommand, "None"}
 	return m
 }
