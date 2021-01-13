@@ -16,8 +16,8 @@ type Command struct {
 func CommandHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 	cfg, _ := config.Parse()
 	if strings.HasPrefix(m.Content, ";;") {
-		if m.ChannelID == cfg.ChannelID {
-			command := strings.Split(m.Content, ";;")[1]
+		if m.ChannelID == cfg.CommandChannel {
+			command := strings.Split(strings.Split(m.Content, ";;")[1], " ")[0]
 			AllCommands := GetAllCommands()
 			if val, ok := AllCommands[command]; ok {
 				val.Executor(s, m)
@@ -32,5 +32,6 @@ func GetAllCommands() map[string]Command {
 	m := make(map[string]Command)
 	m["info"] = Command{"info", "The main info command", InfoCommand, "None"}
 	m["help"] = Command{"help", "Help Command", HelpCommand, "None"}
+	m["play"] = Command{"play", "Play command", PlayCommand, "None"}
 	return m
 }

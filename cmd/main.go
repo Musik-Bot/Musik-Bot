@@ -4,6 +4,7 @@ import (
 	"fmt"
 	BotConf "github.com/Musik-Bot/Musik-Bot/config"
 	"github.com/Musik-Bot/Musik-Bot/internal/commands"
+	"github.com/Musik-Bot/Musik-Bot/internal/mysql"
 	"github.com/bwmarrin/discordgo"
 	"os"
 	"os/signal"
@@ -11,6 +12,7 @@ import (
 )
 
 func main() {
+	mysql.InitDatabase()
 	config, err := BotConf.Parse()
 	if err != nil {
 		fmt.Println("Error while parsing bot configuration")

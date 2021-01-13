@@ -14,7 +14,7 @@ func HelpCommand(s *discordgo.Session, m *discordgo.MessageCreate) {
 	emb.Color = 0xADE81C
 	emb.Description = "Help command"
 	cfg, _ := config.Parse()
-	channel, _ := s.Channel(cfg.ChannelID)
+	channel, _ := s.Channel(cfg.CommandChannel)
 	emb.AddField("Prefix:", cfg.Prefix)
 	emb.AddField("Command channel:", channel.Name)
 	for _, v := range commandList {
